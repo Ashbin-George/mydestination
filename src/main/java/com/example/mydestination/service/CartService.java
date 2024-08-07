@@ -41,5 +41,35 @@ public class CartService {
             return cart;
         }
     }
+    public String decrementproduct(Long id,Long proid)
+    {
+        Users user= userRepo.findById(id).orElseThrow(() -> new RuntimeException("failed to find user"));
+        Products product= productsRepo.findById(proid).orElseThrow(() -> new RuntimeException("failed to find product"));
+        Cart avblCart = cartRepo.findPresentCart(product.getProid(), user.getId());
+        if(avblCart != null)
+        {
+            Integer getquantity= avblCart.getQuantity();
+            avblCart.setQuantity(getquantity - 1);
+            cartRepo.save(avblCart);
+            return "successfully decremented the quantity";
+        }
+        return "no pdt";
+    }
+    public String removecart(Long id, Long proid)
+    {
+        Users user= userRepo.findById(id).orElseThrow(() -> new RuntimeException("failed to find user"));
+        Products product= productsRepo.findById(proid).orElseThrow(() -> new RuntimeException("failed to find product"));
+        Cart avblCart = cartRepo.findPresentCart(product.getProid(), user.getId());
+        if (avblCart != null)
+        {
+            cartRepo.delete(avblCart);
+            return "cart deleted successfully";
+        }
+        else
+        {
+            return "Cart is empty";
+        }
+    }
+
 
 }

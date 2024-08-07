@@ -27,7 +27,7 @@ public class ProductController {
         }
         catch (Exception ex)
         {
-            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body("faild to add product");
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body("failed to add product");
         }
     }
     @PutMapping("/edit-product")
