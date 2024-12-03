@@ -5,4 +5,5 @@ public class ApiRoutes {
     public static final String createuser = baseUrl + "/mydestination";
     public static final String addProducts = baseUrl + "/product";
     public static final String addTocart = baseUrl+"/cart";
+    public static final String useraddress = baseUrl+"/useraddress";
 }

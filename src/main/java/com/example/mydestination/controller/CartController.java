@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequestMapping(ApiRoutes.addTocart)
 @RestController
 public class CartController {
@@ -21,7 +23,7 @@ public class CartController {
             Cart cart = cartService.addtocart(id,proid);
             return ResponseEntity.ok().body(cart);
     }
-    @PutMapping("decrement-cart")
+    @PutMapping("/decrement-cart")
     public ResponseEntity<?> decrement(@RequestParam(name = "id") Long id,@RequestParam(name="proid") Long proid)
     {
         try
@@ -35,13 +37,27 @@ public class CartController {
         }
 
     }
-    @DeleteMapping("remove-cart")
+    @DeleteMapping("/remove-cart")
     public ResponseEntity<?> removecart (@RequestParam(name="id")Long id,@RequestParam(name="proid") Long proid)
     {
         try
         {
             String result = cartService.removecart(id,proid);
             return ResponseEntity.ok().body(result);
+        }
+        catch (Exception ex)
+        {
+            return  ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(("failed to remove product"));
+        }
+    }
+
+    @GetMapping("/view-cart")
+    public ResponseEntity<?> viewCart (@RequestParam(name="userID")Long userId)
+    {
+        try
+        {
+            List<Cartdto> cartdtos = cartService.findCartDetails(userId);
+            return ResponseEntity.ok().body(cartdtos);
         }
         catch (Exception ex)
         {

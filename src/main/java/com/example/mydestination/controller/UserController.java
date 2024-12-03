@@ -44,4 +44,12 @@ public class UserController
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body("failed to login");
         }
     }
+    @DeleteMapping("/delete-user")
+    public ResponseEntity<?>deleteuser(@RequestBody Userdto user)
+    {
+        try
+        {
+            String result= userservice.deleteuser(username);
+        }
+    }
 }

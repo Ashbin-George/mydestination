@@ -10,6 +10,9 @@ import com.example.mydestination.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class CartService {
     @Autowired
@@ -69,6 +72,21 @@ public class CartService {
         {
             return "Cart is empty";
         }
+    }
+
+    public List<Cartdto> findCartDetails(Long userId) throws Exception
+    {
+        List<Cartdto> cartdtos = new ArrayList<>();
+        List<Cart> carts = cartRepo.findCartDetailsOfAUser(userId);
+        for (Cart individualCart: carts)
+        {
+            Cartdto newCartDto = new Cartdto();
+            newCartDto.setPdtName(individualCart.getProducts().getProname());
+            newCartDto.setQuantity(individualCart.getQuantity());
+            newCartDto.setTotalPrice(individualCart.getQuantity() * individualCart.getProducts().getProprize());
+            cartdtos.add(newCartDto);
+        }
+        return cartdtos;
     }
 
 

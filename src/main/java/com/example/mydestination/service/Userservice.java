@@ -37,4 +37,17 @@ public class Userservice {
             throw new Exception("Invalid credentials");
         }
     }
+    public String deleteuser(String username) throws Exception
+    {
+        Users user=userRepo.findByEmail(userRepo.);
+        if(user != null)
+        {
+            userRepo.delete(user);
+            return "user account deleted successfully";
+        }
+        else
+        {
+            throw new Exception("Invalid credentials");
+        }
+    }
 }

@@ -26,6 +26,7 @@ public class Cart {
     @JoinColumn(name="user_id",referencedColumnName = "id")
     Users user;
 
+
     @Column(name = "created_at")
     Timestamp CreatedAt;
 
